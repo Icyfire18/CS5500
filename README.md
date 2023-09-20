@@ -2,6 +2,8 @@
 
 ## InProgress
 
+- [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
+- [Project Proposal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EdftzuZHyuFIs4uX7f4vjYABMj3PcdRgMvPfXcCVV4p70Q?e=KrtPnx)
 
 ## TBD 
 
@@ -9,12 +11,12 @@
 
 
 
-[Project Proposal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EdftzuZHyuFIs4uX7f4vjYABMj3PcdRgMvPfXcCVV4p70Q?e=KrtPnx)
+
 
 
 [Software Requirement Specification](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EYtOvawbvnNMq_XdNDL4MxcBVBe-4yS6hrM6GKt2ozpSZA?e=TiYhEL)
 
-[Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
+
 
 [Individual Contribution Score](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EewPx0Jlg4NDl3hmBhCJ5nYB7sw03iCXyh5In7TLlD3IKA?e=yrTxLW)
 
