@@ -3,9 +3,14 @@
 ## InProgress
 
 - [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
+
+- [Team Member Assignments](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EX5P8NcA8_RPrbeu0clp_fcBFZsz1BVgCHzbNDnqD3FmKw?e=rxfZVM)
+
 - [Project Proposal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EdftzuZHyuFIs4uX7f4vjYABMj3PcdRgMvPfXcCVV4p70Q?e=KrtPnx)
 
 ## TBD 
+
+
 
 [Project Rubrix Link](https://docs.google.com/spreadsheets/d/1F2wegwEyFnLxT9_B312vTzoKzwMELVDq2KLEqa-dvkI/edit#gid=0)
 
@@ -13,7 +18,7 @@
 
 [Individual Contribution Score](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EewPx0Jlg4NDl3hmBhCJ5nYB7sw03iCXyh5In7TLlD3IKA?e=yrTxLW)
 
-[Team Member Assignments](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EX5P8NcA8_RPrbeu0clp_fcBFZsz1BVgCHzbNDnqD3FmKw?e=rxfZVM)
+
 
 [Project Evaluation](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EQBkccSTmHdMsZCuPvOR0AYBs_AYpdrQVNPP1-DZyemPUg?e=dA6A3I)
 
