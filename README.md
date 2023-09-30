@@ -1,12 +1,16 @@
 # CS5500
 
-## InProgress
-
-- [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
+## Done 
 
 - [Team Member Assignments](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EX5P8NcA8_RPrbeu0clp_fcBFZsz1BVgCHzbNDnqD3FmKw?e=rxfZVM)
 
 - [Project Proposal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EdftzuZHyuFIs4uX7f4vjYABMj3PcdRgMvPfXcCVV4p70Q?e=KrtPnx)
+
+
+## InProgress
+
+- [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
+
 
 ## TBD 
 
