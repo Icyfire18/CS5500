@@ -1,4 +1,8 @@
 # ignore ALL .log files
 *.log
 
+# Ignore VSCode-specific files and directories
 .vscode/
+.settings.json
+.code-workspace
+.history/
