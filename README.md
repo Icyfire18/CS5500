@@ -13,9 +13,9 @@
 
 - [Software Requirement Specification](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EYtOvawbvnNMq_XdNDL4MxcBVBe-4yS6hrM6GKt2ozpSZA?e=TiYhEL)
 
+- [SRS](https://northeastern-my.sharepoint.com/:w:/g/personal/manne_sa_northeastern_edu/EfHDFv79A6ZPpPC3y9dCIe0B2SegGDbl98CxUOd7IS5sEw?e=axy5hP)
+
 ## TBD 
-
-
 
 [Project Rubrix Link](https://docs.google.com/spreadsheets/d/1F2wegwEyFnLxT9_B312vTzoKzwMELVDq2KLEqa-dvkI/edit#gid=0)
 
