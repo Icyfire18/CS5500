@@ -6,14 +6,11 @@
 
 - [Project Proposal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EdftzuZHyuFIs4uX7f4vjYABMj3PcdRgMvPfXcCVV4p70Q?e=KrtPnx)
 
-
+- [SRS](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EXvgKr6WRGhLtFA9-MkL6O4BxPpo0Wx-_47VYRJwXcF0dw?e=yQ9nRl)
+  
 ## InProgress
 
 - [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
-
-- [Software Requirement Specification](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EYtOvawbvnNMq_XdNDL4MxcBVBe-4yS6hrM6GKt2ozpSZA?e=TiYhEL)
-
-- [SRS](https://northeastern-my.sharepoint.com/:w:/g/personal/manne_sa_northeastern_edu/EfHDFv79A6ZPpPC3y9dCIe0B2SegGDbl98CxUOd7IS5sEw?e=axy5hP)
 
 ## TBD 
 
