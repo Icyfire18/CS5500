@@ -6,3 +6,5 @@
 .settings.json
 .code-workspace
 .history/
+
+__pycache__/

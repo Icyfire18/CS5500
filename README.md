@@ -30,5 +30,3 @@
 
 [Software Design Documentation](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/Ee7wqFN2aoVBniZImXo0V_ABDa8OBAQ8qgAEkwM6HRJUEA?e=n9jyJv)
 
-
-## Done
