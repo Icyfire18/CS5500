@@ -7,12 +7,13 @@
 - [Project Proposal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EdftzuZHyuFIs4uX7f4vjYABMj3PcdRgMvPfXcCVV4p70Q?e=KrtPnx)
 
 - [SRS](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EU-awuNUJUNMuIo5YItHi9sBjOPuS__RoHhk-4R2TN9-Ng?e=j4VobD)
+
+- [Team Organization Process Modal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EcGEk4HMIx1PvHfrKb7obrcBprDcp1bj2TnOkdCa-9zi_A?e=miNkb1)
   
 ## InProgress
 
 - [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
 
-- [Team Organization Process Modal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EcGEk4HMIx1PvHfrKb7obrcBprDcp1bj2TnOkdCa-9zi_A?e=miNkb1)
   
 ## TBD 
 
