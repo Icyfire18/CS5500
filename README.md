@@ -10,6 +10,8 @@
 
 - [Team Organization Process Modal](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EcGEk4HMIx1PvHfrKb7obrcBprDcp1bj2TnOkdCa-9zi_A?e=miNkb1)
   
+- [Software Design Documentation](https://northeastern-my.sharepoint.com/:w:/r/personal/sait_ar_northeastern_edu/Documents/Group-Project-CS5500/MuSE_SDD.docx?d=wf94f2a608b8d4b658d7dc4eccf2a0672&csf=1&web=1&e=cM5f9r)
+
 ## InProgress
 
 - [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
@@ -24,6 +26,3 @@
 [Project Evaluation](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EQBkccSTmHdMsZCuPvOR0AYBs_AYpdrQVNPP1-DZyemPUg?e=dA6A3I)
 
 [Testing Documentation](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EQO3ng0YpJZKniqwSrm-giQBKHE3fE72XMayp4OENLcuUw?e=tig69r)
-
-[Software Design Documentation](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/Ee7wqFN2aoVBniZImXo0V_ABDa8OBAQ8qgAEkwM6HRJUEA?e=n9jyJv)
-
