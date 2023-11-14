@@ -8,3 +8,5 @@
 .history/
 
 __pycache__/
+
+.cache*
