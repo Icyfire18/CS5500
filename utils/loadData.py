@@ -24,7 +24,7 @@ def transform_row(row):
     """
     current_year = pd.to_datetime('now').year
 
-    if row["start_date"] == "not available":
+    if row["start_date"] == "Not Available":
         row["date"] = row["delivery_date"]
     else:
         row["date"] = row["start_date"]
@@ -70,8 +70,8 @@ def transform_row(row):
 
 
 def main():
-    load_file = "../data/pma.xlsx"
-    db_name = "../db.sqlite3"
+    load_file = "data/pma.xlsx"
+    db_name = "db.sqlite3"
 
     meta_data_sheet = "Properties"
     meta_table_name = "pma_museum"
