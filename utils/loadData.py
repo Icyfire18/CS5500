@@ -61,6 +61,7 @@ def transform_row(row):
         row["usage_per_sq_feet"] = (row["common_usage_units"] * 1000) / 13000
         row["age"] = current_year - 1830
 
+    row["date"] = str(row["date"])
     return row
 
 
@@ -69,14 +70,14 @@ def transform_row(row):
 
 
 def main():
-    load_file = "data/pma.xlsx"
-    db_name = "database/pma.sqlite"
+    load_file = "../data/pma.xlsx"
+    db_name = "../db.sqlite3"
 
     meta_data_sheet = "Properties"
-    meta_table_name = "museum"
+    meta_table_name = "pma_museum"
 
     data_sheet = "Meter Entries"
-    data_table_name = "usage"
+    data_table_name = "pma_usage"
 
     meta_data_col = ["property_name", "property_id", "street_address_1", "street_address_2", "city", "state", "other_state", "postal_code", "country", "year_built", "type", "construction_status", "gross_floor_area", "gfa_units", "occupancy", "number_of_buildings", "no_of_building"]
     museum_df = read_data(load_file, meta_data_sheet, 17, meta_data_col)
@@ -85,7 +86,9 @@ def main():
     data_col = ["property_name", "property_id", "meter_id", "meter_name", "meter_type", "meter_consumption_id", "start_date", "end_date", 'delivery_date', "quantity", "quantity_units", "cost", "estimation", "demand", "demand_cost", "last_modified_date", "last_modified_by"]
     usage_df = read_data(load_file, data_sheet, 17, data_col)
     df_transformed = usage_df.assign(**usage_df.apply(transform_row, axis=1))
-    df_to_sqlite(usage_df, db_name, data_table_name)
+    df_transformed["u_id"] = df_transformed.reset_index().index + 1
+    df_transformed = df_transformed[["u_id","property_name", "property_id", "meter_id", "meter_name", "meter_type", "meter_consumption_id", "start_date", "end_date", 'delivery_date', "quantity", "quantity_units", "cost", "estimation", "demand", "demand_cost", "last_modified_date", "last_modified_by","age", "common_usage_units", "date","units", "usage_per_sq_feet"]]
+    df_to_sqlite(df_transformed, db_name, data_table_name)
 
 if __name__ == "__main__":
     main()
