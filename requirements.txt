@@ -1,7 +1,7 @@
 Django==3.2.7
 asgiref==3.7.2
 certifi==2023.7.22
-cffi==1.16.0
+cffi==1.15.0
 charset-normalizer==3.3.2
 asttokens==2.4.0
 attrs==23.1.0
