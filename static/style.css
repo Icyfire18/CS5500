@@ -1,0 +1,31 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: rgb(7, 21, 170);
+}
+
+select,
+button {
+    padding: 8px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+#propertyDropdown,
+#meterDropdown {
+    width: 90%;
+    max-width: 600px;
+    margin: 2vh auto;
+    box-sizing: border-box;
+    padding: 2vw;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+

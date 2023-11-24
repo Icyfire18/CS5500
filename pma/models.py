@@ -38,7 +38,7 @@ class Usage(models.Model):
     demand_cost             = models.CharField(max_length=200)
     last_modified_date      = models.CharField(max_length=200)
     last_modified_by        = models.CharField(max_length=200)
-    age                     = models.FloatField()
+    age                     = models.FloatField(null=True, blank=True)  # Allow null values temporarily
     common_usage_units      = models.FloatField()
     date                    = models.CharField(max_length=200)
     units                   = models.CharField(max_length=200)
