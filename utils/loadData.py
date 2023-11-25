@@ -39,11 +39,6 @@ def transform_row(row):
     row["units"] = "Btu(in Millions)"
     row["common_usage_units"] = row["common_usage_units"] / 1000000;
 
-    if row["meter_id"] == 6329063:
-        row["property_name"] = row["property_name"] + "-Fire Meter"
-    else:
-        row["property_name"] = row["property_name"]
-
 
     if row["property_name"] == "Portland Museum of Art":
         row["usage_per_sq_feet"] = (row["common_usage_units"] * 1000) / 74500
@@ -61,6 +56,11 @@ def transform_row(row):
         row["usage_per_sq_feet"] = (row["common_usage_units"] * 1000) / 13000
         row["age"] = current_year - 1830
 
+    if row["meter_id"] == 6329063:
+        row["property_name"] = row["property_name"] + "-Fire Meter"
+    else:
+        row["property_name"] = row["property_name"]
+        
     row["date"] = str(row["date"])
     return row
 
