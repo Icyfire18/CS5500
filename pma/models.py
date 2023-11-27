@@ -38,8 +38,16 @@ class Usage(models.Model):
     demand_cost             = models.CharField(max_length=200)
     last_modified_date      = models.CharField(max_length=200)
     last_modified_by        = models.CharField(max_length=200)
-    age                     = models.FloatField(null=True, blank=True)  # Allow null values temporarily
+    age                     = models.FloatField(null=True)
     common_usage_units      = models.FloatField()
     date                    = models.CharField(max_length=200)
     units                   = models.CharField(max_length=200)
     usage_per_sq_feet       = models.FloatField()
+
+class Weather(models.Model):
+    date                    = models.CharField(primary_key=True, max_length=20)
+    temperature             = models.FloatField()
+    location                = models.CharField(max_length=35)
+    elevation               = models.FloatField()
+    latitude                = models.FloatField()
+    longitude               = models.FloatField()
