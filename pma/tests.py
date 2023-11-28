@@ -1,12 +1,6 @@
 from django.test import TestCase
-import pytest
+# import pytest
 from .models import Museum, Usage, Weather
-
-# # Create your tests here.
-# @pytest.mark.django_db
-# def test_create_model():
-#     Weather.objects.create(date ='11/02/2024', temperature = 24.5, location = "Portland", elevation  = 10.1, latitude  = 20, longitude = 15.5)
-#     assert Weather.objects.count() == 1
 
 class WeatherModelTestCase(TestCase):
     def test_create_weather_model(self):
