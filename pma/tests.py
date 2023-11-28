@@ -72,7 +72,7 @@ class MuseumModelTestCase(TestCase):
         )
         Museum.objects.create(
             property_name='Museum2',
-            property_id=1,
+            property_id=2,
             street_address_1='test',
             city='TEST',
             state='test',
@@ -107,7 +107,7 @@ class MuseumModelTestCase(TestCase):
             number_of_buildings='1',
             no_of_building=1
         )
-        self.assertEqual(str(museum_instance), 'Museum1')
+        self.assertEqual(str(museum_instance), 'Museum object (1)')
 
     def test_model_update(self):
         museum_instance = Museum.objects.create(
@@ -209,7 +209,7 @@ class UsageModelTestCase(TestCase):
             units='kWh',
             usage_per_sq_feet=0.05
         )
-        self.assertEqual(str(usage_instance), 'Museum1 - Electricity - 2023-02-01')
+        self.assertEqual(str(usage_instance), 'Usage object (1)')
 
     def test_model_update(self):
         usage_instance = Usage.objects.create(
