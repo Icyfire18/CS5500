@@ -14,12 +14,7 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.9]
-
-    runs-on: windows-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.9]    
+  
 
     steps:
     - uses: actions/checkout@v3
