@@ -81,15 +81,22 @@ def login(request):
             return redirect('login')
     else:
         return render(request, 'login.html')
+    
+def about_us(request):
+    """
+    Render the about page.
+    """
+    return render(request, 'about-us.html')
 
 @csrf_exempt
-def get_property_data(request, property_id, meter_type):
+def get_property_data(request, property_name, meter_type):
     """
     Retrieve property data for a specific property and meter type.
     """
     if request.method == 'POST':
         try:
-            usage_objects = Usage.objects.filter(property_id=property_id, meter_type=meter_type)
+            # Assuming property_name is a string field in the Usage model
+            usage_objects = Usage.objects.filter(property_name=property_name, meter_type=meter_type)
             data = [{'date': obj.date.split()[0], 'value': obj.common_usage_units} for obj in usage_objects]
 
             return JsonResponse(data, safe=False)
@@ -98,18 +105,20 @@ def get_property_data(request, property_id, meter_type):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-def get_meter_types(request, property_id):
+def get_meter_types(request, property_name):
     """
     Retrieve meter types for a specific property.
     """
     if request.method == 'GET':
         try:
-            meter_types = Usage.objects.filter(property_id=property_id).values_list('meter_type', flat=True).distinct()
+            # Assuming property_name is a string field in the Usage model
+            meter_types = Usage.objects.filter(property_name=property_name).values_list('meter_type', flat=True).distinct()
             return JsonResponse({'meter_types': list(meter_types)})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
 
 @login_required(login_url='login')
 def d3_graph(request):
@@ -119,8 +128,8 @@ def d3_graph(request):
     # Retrieve data from the database
     usageDetails = Usage()
 
-    # Get all unique property_ids
-    property_ids = Usage.objects.values_list('property_id', flat=True).distinct()
+    # Get all unique property_names
+    property_names = Usage.objects.values_list('property_name', flat=True).distinct()
 
     # You can now use property_data in your view
-    return render(request, 'd3-graph.html', {'property_ids': property_ids})
+    return render(request, 'd3-graph.html', {'property_names': property_names})
