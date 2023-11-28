@@ -10,20 +10,24 @@
     <!-- Include the D3.js library -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- Add a link to dark theme CSS file -->
+    <link rel="stylesheet" href="{% static 'dark-theme.css' %}" id="theme-style">
 </head>
 
 <body>
     {% if user.is_authenticated %}
     <h1> Welcome, {{user.username}} </h1><br>
     {% endif %}
-    <!-- Dropdown menu for property_ids -->
+    <!-- Dropdown menu for property_names -->
+    <h4>Select Property: </h4>
     <select id="propertyDropdown">
-        {% for property_id in property_ids %}
-            <option value="{{ property_id }}">{{ property_id }}</option>
+        {% for property_name in property_names %}
+            <option value="{{ property_name }}">{{ property_name }}</option>
         {% endfor %}
     </select>
 
     <!-- Dropdown menu for meter_types -->
+    <br><h4>Select Meter Type: </h4>
     <select id="meterDropdown">
         <!-- Meter types will be dynamically updated here -->
     </select>

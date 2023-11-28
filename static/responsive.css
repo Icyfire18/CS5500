@@ -1,0 +1,46 @@
+/* responsive.css */
+
+/* Navbar styling for larger screens */
+@media screen and (min-width: 768px) {
+    .navbar-toggle {
+        display: none;
+    }
+
+    .main-nav {
+        display: flex;
+    }
+
+    .main-nav li {
+        margin: 0;
+    }
+}
+
+/* Navbar styling for smaller screens */
+@media screen and (max-width: 767px) {
+    .navbar-toggle {
+        display: block;
+    }
+
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        background-color: #333;
+    }
+
+    .main-nav.active {
+        display: flex;
+    }
+
+    .main-nav li {
+        text-align: center;
+        padding: 15px;
+        border-bottom: 1px solid #fff;
+    }
+
+    .navbar-toggle.active {
+        background-color: #333;
+    }
+}
