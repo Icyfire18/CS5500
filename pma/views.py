@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from .models import Usage
+from .models import Usage, Weather
 
 def home(request):
     """
@@ -97,13 +97,30 @@ def get_property_data(request, property_name, meter_type):
         try:
             # Assuming property_name is a string field in the Usage model
             usage_objects = Usage.objects.filter(property_name=property_name, meter_type=meter_type)
-            data = [{'date': obj.date.split()[0], 'value': obj.common_usage_units} for obj in usage_objects]
 
-            return JsonResponse(data, safe=False)
-        except json.JSONDecodeError as e:
-            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+            # Find the starting and ending dates for usage data
+            start_date = usage_objects[0].date
+            end_date = usage_objects[len(usage_objects) - 1].date
+
+            # Assuming the Weather model has a date field and temperature field
+            temperature_objects = Weather.objects.filter(date__range=[start_date, end_date])
+
+            # Extract date and temperature data
+            temperature_data = [{'date': obj.date, 'value': obj.temperature} for obj in temperature_objects]
+            temperature_data = sorted(temperature_data, key=lambda x: x['date'])
+
+            # Extract date and value data from usage
+            usage_data = [{'date': obj.date, 'value': obj.common_usage_units} for obj in usage_objects]
+
+            # Combine usage and temperature data
+            data = {'usage': usage_data, 'temperature': temperature_data}
+
+            return JsonResponse({'data': data})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
 
 def get_meter_types(request, property_name):
     """
