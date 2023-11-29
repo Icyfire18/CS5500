@@ -1,100 +1,220 @@
-console.log('it is start');
+// Function to update the D3 graph
+function updateGraph(data) {
+    console.log("Data received:", data);
 
-        // Function to update the D3 graph
-        function updateGraph(data) {
-            // Set dimensions and margins for the chart
-            const margin = { top: 70, right: 30, bottom: 40, left: 80 };
-            const width = 1200 - margin.left - margin.right;
-            const height = 500 - margin.top - margin.bottom;
-
-            // Set up the x and y scales
-            const x = d3.scaleTime().range([0, width]);
-            const y = d3.scaleLinear().range([height, 0]);
-
-            // Create the SVG element and append it to the chart container
-            const svg = d3.select("#chart-container")
-                .html("")  // Clear previous SVG content
-                .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", `translate(${margin.left},${margin.top})`);
-
-            // Parse date values as JavaScript Date objects
-            data.forEach(function (d) {
-                d.date = new Date(d.date);
-            });
-
-            // Log the dataset to the console
-            console.log(data);
-
-            // Define the x and y domains
-            x.domain(d3.extent(data, d => d.date));
-            y.domain([0, d3.max(data, d => d.value)]);
-
-            // Add the x-axis with only first and last month-year
-            svg.append("g")
-                .attr("transform", `translate(0,${height})`)
-                .call(d3.axisBottom(x)
-                    .ticks(d3.timeMonth.every(1))
-                    .tickFormat((date, i) => {
-                        // Display only first and last month-year
-                        if (i === 0 || i === (d3.timeMonth.range(x.domain()[0], x.domain()[1]).length - 1)) {
-                            return d3.timeFormat("%b %Y")(date);
-                        } else {
-                            return "";
-                        }
-                    })
-                );
-
-            // Add the y-axis
-            svg.append("g")
-                .call(d3.axisLeft(y))
-
-            // Create the line generator
-            const line = d3.line()
-                .x(d => x(d.date))
-                .y(d => y(d.value));
-
-            // Add the line path to the SVG element
-            svg.append("path")
-                .datum(data)
-                .attr("fill", "none")
-                .attr("stroke", "red")
-                .attr("stroke-width", 1)
-                .attr("d", line);
-        }
-
-        // Function to update the meter types dropdown
-    function updateMeterTypes(meterTypes) {
-        var meterDropdown = document.getElementById('meterDropdown');
-        meterDropdown.innerHTML = '';  // Clear previous options
-
-        meterTypes.forEach(function (meterType) {
-            var option = document.createElement('option');
-            option.value = meterType;
-            option.text = meterType;
-            meterDropdown.add(option);
-        });
+    // Check if data is valid
+    if (!data || !data.usage || !data.temperature) {
+        console.error("Invalid data format");
+        return;
     }
 
-    // Set up the change event listener for the property dropdown
-    document.getElementById('propertyDropdown').addEventListener('change', function (event) {
-        event.preventDefault();  // Prevent default form submission behavior
+    // Set dimensions and margins for the chart
+    const margin = { top: 70, right: 30, bottom: 60, left: 80 };  // Increased bottom margin for x-axis title
+    const width = 1200 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
 
-        var selectedPropertyId = this.value;
+    // Set up the x and y scales
+    const x = d3.scaleTime().range([0, width]);
+    const y = d3.scaleLinear().range([height, 0]);
 
-        // Update the URL to include the selected property_id
-        var url = '/get_meter_types/' + encodeURIComponent(selectedPropertyId) + '/';
+    // Create the SVG element and append it to the chart container
+    const svg = d3.select("#chart-container")
+        .html("")  // Clear previous SVG content
+        .append("svg")
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        // Fetch meter types based on the selected property_id
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if necessary
-            },
-        })
+    // create tooltip div
+    const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip");
+
+    // Parse date values as JavaScript Date objects
+    data.usage.forEach(function (d) {
+        d.date = new Date(d.date);
+        d.usage = +d.value; // convert to numeric value
+    });
+
+    data.temperature.forEach(function (d) {
+        d.date = new Date(d.date);
+        d.temperature = +d.value; // convert to numeric value
+    });
+
+    console.log("Parsed data:", data);
+
+    // Combine usage and temperature data
+    const combinedData = data.usage.concat(data.temperature);
+
+    // Fill missing temperature values with the average of previous and next month's values
+    const filledTemperatureData = fillMissingTemperature(combinedData);
+
+    // Define the x and y domains
+    x.domain(d3.extent(filledTemperatureData, d => d.date));
+    y.domain([0, d3.max(filledTemperatureData, d => d.value)]);
+
+    // Add the x-axis with only first and last month-year
+    svg.append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(x)
+            .ticks(d3.timeMonth.every(1))
+            .tickFormat((date, i) => {
+                // Display only first and last month-year
+                if (i === 0 || i === (d3.timeMonth.range(x.domain()[0], x.domain()[1]).length - 1)) {
+                    return d3.timeFormat("%b %Y")(date);
+                } else {
+                    return "";
+                }
+            })
+        )
+        .append("text")
+        .attr("x", width / 2)
+        .attr("y", margin.bottom - 10)
+        .attr("fill", "#000")
+        .style("font-weight", "bold")
+        .text("DATE");
+
+    // Add the y-axis
+    svg.append("g")
+        .call(d3.axisLeft(y));
+
+    // Create the line generators
+    const lineUsage = d3.line()
+        .x(d => x(d.date))
+        .y(d => y(d.value));
+
+    const lineTemperature = d3.line()
+        .x(d => x(d.date))
+        .y(d => y(d.temperature)); // Use temperature value for y-axis
+
+    // Add the line paths to the SVG element
+    svg.append("path")
+        .datum(data.usage)
+        .attr("fill", "none")
+        .attr("stroke", "green") // Set color for usage line
+        .attr("stroke-width", 1)
+        .attr("d", lineUsage);
+
+    svg.append("path")
+        .datum(data.temperature)
+        .attr("fill", "none")
+        .attr("stroke", "red") // Set color for temperature line
+        .attr("stroke-width", 1)
+        .attr("d", lineTemperature);
+
+    // create a listening rectangle
+    const listeningRect = svg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .style("fill", "none")
+        .style("pointer-events", "all")
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave);
+
+    // create the mouse move function
+    function mousemove(event) {
+        const [xCoord] = d3.pointer(event);
+        const bisectDate = d3.bisector(d => d.date).left;
+        const x0 = x.invert(xCoord);
+        const i = bisectDate(filledTemperatureData, x0, 1);
+        const d = filledTemperatureData[i];
+
+        // Display the vertical line
+        svg.selectAll(".vertical-line").remove();
+        svg.append("line")
+            .attr("class", "vertical-line")
+            .attr("x1", x(d.date))
+            .attr("x2", x(d.date))
+            .attr("y1", 0)
+            .attr("y2", height)
+            .attr("stroke", "white")
+            .attr("stroke-width", 1)
+            .attr("stroke-dasharray", "4");
+
+        // Display the data below the graph
+        tooltip
+            .style("display", "block")
+            .style("left", `${x(d.date) + margin.left}px`)
+            .style("top", `${height + margin.top + 10}px`)
+            .html(`<strong>Date:</strong> ${d.date.toLocaleDateString()}<br><strong>Usage:</strong> ${!isNaN(d.usage) ? d.usage.toFixed(2) : 'N/A'}<br><strong>Temperature:</strong> ${!isNaN(d.temperature) ? d.temperature.toFixed(2) : calculateAverageTemperature(d, filledTemperatureData)}`);
+    }
+
+    // listening rectangle mouse leave function
+    function mouseleave() {
+        // Remove the vertical line and hide the tooltip
+        svg.selectAll(".vertical-line").remove();
+        tooltip.style("display", "none");
+    }
+
+    // Function to fill missing temperature values with the average of previous and next month's values
+    function fillMissingTemperature(data) {
+        const filledData = [...data];
+
+        for (let i = 1; i < filledData.length - 1; i++) {
+            if (isNaN(filledData[i].temperature)) {
+                const prevValue = filledData[i - 1].temperature;
+                const nextValue = filledData[i + 1].temperature;
+
+                if (!isNaN(prevValue) && !isNaN(nextValue)) {
+                    filledData[i].temperature = (prevValue + nextValue) / 2;
+                } else if (!isNaN(prevValue)) {
+                    filledData[i].temperature = prevValue;
+                } else if (!isNaN(nextValue)) {
+                    filledData[i].temperature = nextValue;
+                }
+            }
+        }
+
+        return filledData;
+    }
+
+    // Function to calculate average temperature based on the given date
+    function calculateAverageTemperature(d, data) {
+        const month = d.date.getMonth();
+        const year = d.date.getFullYear();
+
+        const relevantData = data.filter(entry => entry.date.getMonth() === month && entry.date.getFullYear() === year);
+        const validTemperatures = relevantData.map(entry => entry.temperature).filter(temp => !isNaN(temp));
+
+        if (validTemperatures.length > 0) {
+            return d3.mean(validTemperatures).toFixed(2);
+        } else {
+            return 'N/A';
+        }
+    }
+}
+
+// Function to update the meter types dropdown
+function updateMeterTypes(meterTypes) {
+    var meterDropdown = document.getElementById('meterDropdown');
+    meterDropdown.innerHTML = '';  // Clear previous options
+
+    meterTypes.forEach(function (meterType) {
+        var option = document.createElement('option');
+        option.value = meterType;
+        option.text = meterType;
+        meterDropdown.add(option);
+    });
+}
+
+// Set up the change event listener for the property dropdown
+document.getElementById('propertyDropdown').addEventListener('change', function (event) {
+    event.preventDefault();  // Prevent default form submission behavior
+
+    var selectedPropertyName = this.value;
+
+    // Update the URL to include the selected property_id
+    var url = '/get_meter_types/' + encodeURIComponent(selectedPropertyName) + '/';
+
+    // Fetch meter types based on the selected property_id
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers if necessary
+        },
+    })
         .then(response => response.json())
         .then(data => {
             // Update the meter types dropdown
@@ -108,36 +228,34 @@ console.log('it is start');
             document.getElementById('meterDropdown').dispatchEvent(new Event('change'));
         })
         .catch(error => console.error('Error:', error));
-    });
+});
 
-    // Set up the change event listener for the meter dropdown
-    document.getElementById('meterDropdown').addEventListener('change', function (event) {
-        event.preventDefault();  // Prevent default form submission behavior
+// Set up the change event listener for the meter dropdown
+document.getElementById('meterDropdown').addEventListener('change', function (event) {
+    event.preventDefault();  // Prevent default form submission behavior
 
-        var selectedPropertyId = document.getElementById('propertyDropdown').value;
-        var selectedMeterType = this.value;
+    var selectedPropertyName = document.getElementById('propertyDropdown').value;
+    var selectedMeterType = this.value;
 
-        console.log(selectedPropertyId, selectedMeterType);
+    // Update the URL to include the selected property_id and meter_type
+    var url = '/get_property_data/' + encodeURIComponent(selectedPropertyName) + '/' + encodeURIComponent(selectedMeterType) + '/';
 
-        // Update the URL to include the selected property_id and meter_type
-        var url = '/get_property_data/' + encodeURIComponent(selectedPropertyId) + '/' + encodeURIComponent(selectedMeterType) + '/';
-
-        // Fetch and display property data based on the selected property and meter type
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if necessary
-            },
-            body: JSON.stringify({ property_id: selectedPropertyId, meter_type: selectedMeterType })
-        })
+    // Fetch and display property data based on the selected property and meter type
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers if necessary
+        },
+        body: JSON.stringify({ property_id: selectedPropertyName, meter_type: selectedMeterType })
+    })
         .then(response => response.json())
         .then(data => {
             // Update the D3 graph with the selected property data
-            updateGraph(data);
+            updateGraph(data.data);
         })
         .catch(error => console.error('Error:', error));
-    });
+});
 
-    // Trigger the change event after setting up the listener
-    document.getElementById('propertyDropdown').dispatchEvent(new Event('change'));
+// Trigger the change event after setting up the listener
+document.getElementById('propertyDropdown').dispatchEvent(new Event('change'));

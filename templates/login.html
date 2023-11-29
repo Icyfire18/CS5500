@@ -1,23 +1,35 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'style.css' %}">
-<link rel="stylesheet" href="{% static 'login.css' %}">
-<!-- Add a link to dark theme CSS file -->
-<link rel="stylesheet" href="{% static 'dark-theme.css' %}" id="theme-style">
+{% extends 'base.html' %}
 
-<h1>Login</h1>
+{% block title %}
+    <!-- Set the title for the Login page, overriding the base template -->
+    Login
+{% endblock %}
 
-<form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    <p>Username:</p>
-    <input type="text" name="username" />
-    <p>Password:</p>
-    <input type="password" name="password" />
-    <br>
-    <input type="submit" />
-</form>
+{% block content %}
+    <!-- Content specific to the Login page -->
 
-{% for message in messages %}
-<h5>{{message}}</h5>
-{% endfor %}
+    <!-- Heading for the login form -->
+    <h1>Login</h1>
 
-<br><p>Don't have an account? <a href="{% url 'register' %}">Register Here</a></p>
+    <!-- Login form with method and action attributes -->
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <!-- Input field for the username -->
+        <p>Username:</p>
+        <input type="text" name="username" />
+        <!-- Input field for the password -->
+        <p>Password:</p>
+        <input type="password" name="password" />
+        <br>
+        <!-- Submit button for the form -->
+        <input type="submit" />
+    </form>
+
+    <!-- Display messages from the server, if any -->
+    {% for message in messages %}
+        <h5>{{ message }}</h5>
+    {% endfor %}
+
+    <!-- Link to register if the user doesn't have an account -->
+    <br><p>Don't have an account? <a href="{% url 'register' %}">Register Here</a></p>
+{% endblock %}

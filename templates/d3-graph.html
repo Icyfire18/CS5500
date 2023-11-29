@@ -1,24 +1,21 @@
+{% extends 'base.html' %}
+
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}
+    <!-- Set the title for the D3 Graph page, overriding the base template -->
+    D3 Graph Page
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
-    <!-- Include the D3.js library -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <!-- Add a link to dark theme CSS file -->
-    <link rel="stylesheet" href="{% static 'dark-theme.css' %}" id="theme-style">
-</head>
-
-<body>
+{% block content %}
     {% if user.is_authenticated %}
-    <h1> Welcome, {{user.username}} </h1><br>
+        <!-- Display a welcome message for authenticated users -->
+        <h1>Welcome, {{ user.username }}</h1><br>
     {% endif %}
-    <!-- Dropdown menu for property_names -->
+    
+    <!-- Additional content specific to the D3 Graph page -->
+    
+    <!-- Dropdown menu for selecting property names -->
     <h4>Select Property: </h4>
     <select id="propertyDropdown">
         {% for property_name in property_names %}
@@ -26,7 +23,7 @@
         {% endfor %}
     </select>
 
-    <!-- Dropdown menu for meter_types -->
+    <!-- Dropdown menu for selecting meter types -->
     <br><h4>Select Meter Type: </h4>
     <select id="meterDropdown">
         <!-- Meter types will be dynamically updated here -->
@@ -37,168 +34,15 @@
         <!-- Data will be dynamically updated here -->
     </div>
 
-    <h1> Graph Below </h1>
+    <!-- Heading for the graph section -->
+    <h1>Graph Below</h1>
+    
+    <!-- Container for the D3.js graph -->
     <div id="chart-container"></div>
-
-    <script>
-        // Function to update the D3 graph
-        function updateGraph(data) {
-            console.log(data.usage)
-            console.log(data.temperature)
-            // Set dimensions and margins for the chart
-            const margin = { top: 70, right: 30, bottom: 40, left: 80 };
-            const width = 1200 - margin.left - margin.right;
-            const height = 500 - margin.top - margin.bottom;
-
-            // Set up the x and y scales
-            const x = d3.scaleTime().range([0, width]);
-            const y = d3.scaleLinear().range([height, 0]);
-
-            // Create the SVG element and append it to the chart container
-const svg = d3.select("#chart-container")
-    .html("")  // Clear previous SVG content
-    .append("svg")
-    .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-    .attr("preserveAspectRatio", "xMidYMid meet")
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-            // Parse date values as JavaScript Date objects
-            data.usage.forEach(function (d) {
-                d.date = new Date(d.date);
-            });
-
-            data.temperature.forEach(function (d) {
-                d.date = new Date(d.date);
-            });
-
-            // Combine usage and temperature data
-            const combinedData = data.usage.concat(data.temperature);
-
-            // Define the x and y domains
-            x.domain(d3.extent(combinedData, d => d.date));
-            y.domain([0, d3.max(combinedData, d => d.value)]);
-
-            // Add the x-axis with only first and last month-year
-            svg.append("g")
-                .attr("transform", `translate(0,${height})`)
-                .call(d3.axisBottom(x)
-                    .ticks(d3.timeMonth.every(1))
-                    .tickFormat((date, i) => {
-                        // Display only first and last month-year
-                        if (i === 0 || i === (d3.timeMonth.range(x.domain()[0], x.domain()[1]).length - 1)) {
-                            return d3.timeFormat("%b %Y")(date);
-                        } else {
-                            return "";
-                        }
-                    })
-                );
-
-            // Add the y-axis
-            svg.append("g")
-                .call(d3.axisLeft(y))
-
-            // Create the line generators
-            const lineUsage = d3.line()
-                .x(d => x(d.date))
-                .y(d => y(d.value));
-
-            const lineTemperature = d3.line()
-                .x(d => x(d.date))
-                .y(d => y(d.value));
-
-            // Add the line paths to the SVG element
-            svg.append("path")
-                .datum(data.usage)
-                .attr("fill", "none")
-                .attr("stroke", "red")
-                .attr("stroke-width", 1)
-                .attr("d", lineUsage);
-
-            svg.append("path")
-                .datum(data.temperature)
-                .attr("fill", "none")
-                .attr("stroke", "green")
-                .attr("stroke-width", 1)
-                .attr("d", lineTemperature);
-        }
-
-        // Function to update the meter types dropdown
-        function updateMeterTypes(meterTypes) {
-            var meterDropdown = document.getElementById('meterDropdown');
-            meterDropdown.innerHTML = '';  // Clear previous options
-
-            meterTypes.forEach(function (meterType) {
-                var option = document.createElement('option');
-                option.value = meterType;
-                option.text = meterType;
-                meterDropdown.add(option);
-            });
-        }
-
-        // Set up the change event listener for the property dropdown
-        document.getElementById('propertyDropdown').addEventListener('change', function (event) {
-            event.preventDefault();  // Prevent default form submission behavior
-
-            var selectedPropertyName = this.value;
-
-            // Update the URL to include the selected property_id
-            var url = '/get_meter_types/' + encodeURIComponent(selectedPropertyName) + '/';
-
-            // Fetch meter types based on the selected property_id
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Add any other headers if necessary
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Update the meter types dropdown
-                updateMeterTypes(data.meter_types);
-
-                // Select the first meter type by default
-                var defaultMeterType = data.meter_types[0];
-                document.getElementById('meterDropdown').value = defaultMeterType;
-
-                // Trigger the change event for the meter dropdown
-                document.getElementById('meterDropdown').dispatchEvent(new Event('change'));
-            })
-            .catch(error => console.error('Error:', error));
-        });
-
-        // Set up the change event listener for the meter dropdown
-        document.getElementById('meterDropdown').addEventListener('change', function (event) {
-            event.preventDefault();  // Prevent default form submission behavior
-
-            var selectedPropertyName = document.getElementById('propertyDropdown').value;
-            var selectedMeterType = this.value;
-
-            // Update the URL to include the selected property_id and meter_type
-            var url = '/get_property_data/' + encodeURIComponent(selectedPropertyName) + '/' + encodeURIComponent(selectedMeterType) + '/';
-
-            // Fetch and display property data based on the selected property and meter type
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Add any other headers if necessary
-                },
-                body: JSON.stringify({ property_id: selectedPropertyName, meter_type: selectedMeterType })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Update the D3 graph with the selected property data
-                updateGraph(data.data);
-            })
-            .catch(error => console.error('Error:', error));
-        });
-
-        // Trigger the change event after setting up the listener
-        document.getElementById('propertyDropdown').dispatchEvent(new Event('change'));
-    </script>
-
-</body>
-
-</html>
+    
+    <!-- Include the D3.js library directly in d3-graph.html for this specific page -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Include the specific JavaScript file for the D3 Graph page -->
+    <script src="{% static 'd3_graph.js' %}"></script>
+{% endblock %}

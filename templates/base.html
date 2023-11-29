@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Set the character set and viewport for responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Include the main stylesheet -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+    <!-- Add a link to the dark theme CSS file with an ID for dynamic theme switching -->
+    <link rel="stylesheet" href="{% static 'dark-theme.css' %}" id="theme-style">
+
+    <!-- Include the responsive stylesheet for mobile-friendly design -->
+    <link rel="stylesheet" href="{% static 'responsive.css' %}">
+
+    <!-- Set the title of the page using a block that can be overridden in child templates -->
+    <title>{% block title %}Homepage{% endblock %}</title>
+</head>
+
+<body>
+    <!-- Navigation section with a responsive navbar -->
+    <nav>
+        <div class="navbar">
+            <!-- Button for toggling the navigation menu on small screens -->
+            <button class="navbar-toggle" id="js-navbar-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <!-- Navigation menu with dynamic content based on user authentication status -->
+            <ul class="main-nav" id="js-menu">
+                {% if user.is_authenticated %}
+                <!-- Display links for authenticated users -->
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="#" onclick="document.getElementById('logout-form').submit()">Logout</a></li>
+                <form id="logout-form" action="{% url 'user_actions' %}" method="post" style="display: none;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="logout">
+                </form>
+                <li><a href="{% url 'd3_graph' %}">View Data</a></li>
+                {% else %}
+                <!-- Display links for non-authenticated users -->
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="#" disabled title="Only registered users can access" onclick="alert('Login required')">View Data</a></li>
+                {% endif %}
+                <!-- Common link for all users -->
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content section with a block for child templates to override -->
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Include the navigation JavaScript file -->
+    <script src="{% static 'nav.js' %}"></script>
+</body>
+
+</html>
