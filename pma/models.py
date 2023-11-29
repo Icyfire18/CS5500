@@ -51,3 +51,12 @@ class Weather(models.Model):
     elevation               = models.FloatField()
     latitude                = models.FloatField()
     longitude               = models.FloatField()
+
+
+class Prediction(models.Model):
+    u_id                    = models.IntegerField(default=0, primary_key=True)
+    date                    = models.CharField(max_length=20)
+    property_name           = models.CharField(max_length=200)
+    property_id             = models.IntegerField(default=0)
+    meter_type              = models.CharField(max_length=50)
+    temperature             = models.FloatField()
