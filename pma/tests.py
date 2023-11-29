@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import Museum, Usage, Weather, Prediction
 
+
 class WeatherModelTestCase(TestCase):
     def test_create_weather_model(self):
         Weather.objects.create(
