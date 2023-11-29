@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Museum, Usage, Weather
+from .models import Museum, Usage, Weather, Prediction
 
 class WeatherModelTestCase(TestCase):
     def test_create_weather_model(self):
@@ -271,3 +271,51 @@ class UsageModelTestCase(TestCase):
         usage_instance.delete()
         self.assertEqual(Usage.objects.count(), 0)
         
+class PredictionModelTestCase(TestCase):
+    def test_create_prediction_model(self):
+        Prediction.objects.create(
+            u_id=1,
+            date='2023-02-01',
+            property_name='Museum1',
+            property_id=1,
+            meter_type='Electric',
+            temperature=24.5
+        )
+        self.assertEqual(Prediction.objects.count(), 1)
+
+    def test_model_str_representation(self):
+        prediction_instance = Prediction.objects.create(
+            u_id=1,
+            date='2023-02-01',
+            property_name='Museum1',
+            property_id=1,
+            meter_type='Electric',
+            temperature=24.5
+        )
+        self.assertEqual(str(prediction_instance), 'Prediction object (1)')
+
+    def test_model_update(self):
+        prediction_instance = Prediction.objects.create(
+            u_id=1,
+            date='2023-02-01',
+            property_name='Museum1',
+            property_id=1,
+            meter_type='Electric',
+            temperature=24.5
+        )
+        prediction_instance.temperature = 25.0
+        prediction_instance.save()
+        updated_instance = Prediction.objects.get(pk=prediction_instance.pk)
+        self.assertEqual(updated_instance.temperature, 25.0)
+
+    def test_model_deletion(self):
+        prediction_instance = Prediction.objects.create(
+            u_id=1,
+            date='2023-02-01',
+            property_name='Museum1',
+            property_id=1,
+            meter_type='Electric',
+            temperature=24.5
+        )
+        prediction_instance.delete()
+        self.assertEqual(Prediction.objects.count(), 0)
