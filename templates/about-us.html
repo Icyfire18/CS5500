@@ -5,6 +5,11 @@
     About Us
 {% endblock %}
 
+{% block extra_css %}
+    <!-- Link the custom CSS file for the about page -->
+    <link rel="stylesheet" href="{% static 'aboutpage.css' %}">
+{% endblock %}
+
 {% block content %}
     <!-- Content specific to the About Us page -->
     

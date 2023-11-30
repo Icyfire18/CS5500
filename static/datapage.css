@@ -1,0 +1,37 @@
+/* Style for the welcome message */
+h1 {
+    margin-bottom: 20px; /* Add some spacing below the welcome message */
+}
+
+/* Style for the dropdown menus */
+select {
+    padding: 8px; /* Add padding to the dropdowns */
+    margin-bottom: 15px; /* Add some spacing below the dropdowns */
+}
+
+/* Style for the propertyDataDisplay container */
+#propertyDataDisplay {
+    margin-bottom: 20px; /* Add some spacing below the data display */
+}
+
+/* Style for the graph section heading */
+h1 {
+    color: #007BFF; /* Blue color for the heading */
+}
+
+/* Style for the chart container */
+#chart-container {
+    border: 1px solid #ddd; /* Add a border to the chart container */
+    padding: 20px; /* Add padding to the chart container */
+}
+
+/* Style for the tooltip */
+.tooltip {
+    color: black;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.8); /* White background with some transparency */
+    padding: 10px; /* Add padding to the tooltip */
+    border: 1px solid #333; /* Add a border to the tooltip */
+    display: none; /* Hide the tooltip by default */
+    pointer-events: none; /* Ensure that the tooltip does not interfere with mouse events on the chart */
+}

@@ -7,6 +7,11 @@
     D3 Graph Page
 {% endblock %}
 
+{% block extra_css %}
+    <!-- Link the custom CSS file for the data page -->
+    <link rel="stylesheet" href="{% static 'datapage.css' %}">
+{% endblock %}
+
 {% block content %}
     {% if user.is_authenticated %}
         <!-- Display a welcome message for authenticated users -->
