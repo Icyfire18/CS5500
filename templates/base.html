@@ -10,18 +10,16 @@
 
     <!-- Include the main stylesheet -->
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    
-    <!-- Add a link to the dark theme CSS file with an ID for dynamic theme switching -->
-    <link rel="stylesheet" href="{% static 'dark-theme.css' %}" id="theme-style">
 
     <!-- Include the responsive stylesheet for mobile-friendly design -->
     <link rel="stylesheet" href="{% static 'responsive.css' %}">
 
     <!-- Set the title of the page using a block that can be overridden in child templates -->
-    <title>{% block title %}Homepage{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
+    {% block extra_css %}{% endblock %}
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}" {% block body_style %}{% endblock %}>
     <!-- Navigation section with a responsive navbar -->
     <nav>
         <div class="navbar">
@@ -34,9 +32,10 @@
 
             <!-- Navigation menu with dynamic content based on user authentication status -->
             <ul class="main-nav" id="js-menu">
+                <!-- Common link for all users -->
+                <li><a href="{% url 'home' %}">Home</a></li>
                 {% if user.is_authenticated %}
                 <!-- Display links for authenticated users -->
-                <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="#" onclick="document.getElementById('logout-form').submit()">Logout</a></li>
                 <form id="logout-form" action="{% url 'user_actions' %}" method="post" style="display: none;">
                     {% csrf_token %}
@@ -45,7 +44,7 @@
                 <li><a href="{% url 'd3_graph' %}">View Data</a></li>
                 {% else %}
                 <!-- Display links for non-authenticated users -->
-                <li><a href="{% url 'home' %}">Home</a></li>
+                
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
                 <li><a href="#" disabled title="Only registered users can access" onclick="alert('Login required')">View Data</a></li>

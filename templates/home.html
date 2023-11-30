@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
     <!-- Set the title for the Home page, overriding the base template -->
     Homepage
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Link the custom CSS file for the login page -->
+    <link rel="stylesheet" href="{% static 'homepage.css' %}">
+{% endblock %}
+
+{% block body_style %}
+    style="background-image: url('{% static 'home.jpg' %}');""
 {% endblock %}
 
 {% block content %}
@@ -11,9 +22,6 @@
     <!-- Container for the about section -->
     <div class="about-container">
         <!-- Heading for the about section -->
-        <h2>This is MuSE</h2><br>
+        <h1>MuSE</h1>
     </div>
-    
-    <!-- Description of the MuSE project -->
-    <p>MuSE is a project in the course CS5500. A website to study data about weather impact on unit consumption.</p>
 {% endblock %}

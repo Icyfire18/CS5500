@@ -1,35 +1,55 @@
+<!-- login.html -->
+
 {% extends 'base.html' %}
+
+{% load static %}
 
 {% block title %}
     <!-- Set the title for the Login page, overriding the base template -->
     Login
 {% endblock %}
 
+{% block extra_css %}
+    <!-- Link the custom CSS file for the login page -->
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+{% endblock %}
+
+{% block body_style %}
+    style="background-image: url('{% static 'login.jpg' %}');"
+{% endblock %}
+
 {% block content %}
     <!-- Content specific to the Login page -->
+    <div class="form-container">
+        <div class="form-box">
+            <!-- Heading for the login form -->
+            <h1>Login</h1>
 
-    <!-- Heading for the login form -->
-    <h1>Login</h1>
+            <!-- Login form with method and action attributes -->
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <!-- Input field for the username -->
+                <div class="form-group">
+                    <p>Username:</p>
+                    <input type="text" name="username" />
+                </div>
+                <!-- Input field for the password -->
+                <div class="form-group">
+                    <p>Password:</p>
+                    <input type="password" name="password" />
+                </div>
+                <br>
+                <!-- Submit button for the form -->
+                <input type="submit" />
+            </form>
 
-    <!-- Login form with method and action attributes -->
-    <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
-        <!-- Input field for the username -->
-        <p>Username:</p>
-        <input type="text" name="username" />
-        <!-- Input field for the password -->
-        <p>Password:</p>
-        <input type="password" name="password" />
-        <br>
-        <!-- Submit button for the form -->
-        <input type="submit" />
-    </form>
+            <!-- Display messages from the server, if any -->
+            {% for message in messages %}
+                <h5>{{ message }}</h5>
+            {% endfor %}
 
-    <!-- Display messages from the server, if any -->
-    {% for message in messages %}
-        <h5>{{ message }}</h5>
-    {% endfor %}
-
-    <!-- Link to register if the user doesn't have an account -->
-    <br><p>Don't have an account? <a href="{% url 'register' %}">Register Here</a></p>
+            <!-- Link to register if the user doesn't have an account -->
+            <br><p>Don't have an account? <a href="{% url 'register' %}">Register Here</a></p>
+        </div>
+    </div>
 {% endblock %}

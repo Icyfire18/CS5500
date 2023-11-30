@@ -1,0 +1,56 @@
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-box {
+    text-align: center;
+    border: 2px solid #fff;
+    padding: 20px;
+    max-width: 300px; /* Set maximum width */
+    width: 100%; /* Take full width */
+    border-radius: 20px;
+}
+
+.form-box:hover,
+.form-box:focus-within { /* Apply styles when any child element has focus, such as when typing in an input field */
+    background-color: rgba(255, 255, 255, 0.7); /* White transparent background color */
+    color: #000; /* Black text color */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 600px) {
+    .form-box {
+        max-width: 100%; /* Take full width on smaller screens */
+    }
+}
