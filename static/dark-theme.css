@@ -1,11 +1,4 @@
-/* dark-theme.css */
 body {
     background-color: #111;
     color: white;
 }
-
-h1 {
-    color: #0071bc; /* Change to your preferred text color */
-}
-
-/* Add any additional styles for dark theme */

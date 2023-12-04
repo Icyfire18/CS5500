@@ -9,7 +9,7 @@ function updateGraph(data) {
     }
 
     // Set dimensions and margins for the chart
-    const margin = { top: 70, right: 30, bottom: 60, left: 80 };  // Increased bottom margin for x-axis title
+    const margin = { top: 70, right: 30, bottom: 60, left: 80 };
     const width = 1200 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
@@ -32,23 +32,23 @@ function updateGraph(data) {
         .attr("class", "tooltip");
 
     // Parse date values as JavaScript Date objects
-data.usage.forEach(function (d) {
-    d.date = new Date(d.date);
-    d.value = +d.value; // convert to numeric value
-});
+    data.usage.forEach(function (d) {
+        d.date = new Date(d.date);
+        d.value = +d.value; // convert to numeric value
+    });
 
-data.temperature.forEach(function (d) {
-    d.date = new Date(d.date);
-    d.temperature = +d.value; // convert to numeric value
-});
+    data.temperature.forEach(function (d) {
+        d.date = new Date(d.date);
+        d.temperature = +d.value; // convert to numeric value
+    });
 
-// Combine usage and temperature data
-console.log("Data Usage : ", data.usage);
-console.log("Data Temp: ", data.temperature);
-const combinedData = data.usage.concat(data.temperature);
+    // Combine usage and temperature data
+    console.log("Data Usage : ", data.usage);
+    console.log("Data Temp: ", data.temperature);
+    const combinedData = data.usage.concat(data.temperature);
 
-// Fill missing temperature values with the average of previous and next month's values
-const filledTemperatureData = fillMissingTemperature(combinedData);
+    // Fill missing temperature values with the average of previous and next month's values
+    const filledTemperatureData = fillMissingTemperature(combinedData);
 
     // Define the x and y domains
     x.domain(d3.extent(filledTemperatureData, d => d.date));
@@ -69,39 +69,71 @@ const filledTemperatureData = fillMissingTemperature(combinedData);
             })
         )
         .append("text")
-        .attr("x", width / 2)
-        .attr("y", margin.bottom - 10)
-        .attr("fill", "#000")
-        .style("font-weight", "bold")
-        .text("DATE");
+    .attr("x", width / 2)
+    .attr("y", margin.bottom - 10)
+    .attr("fill", "white")
+    .style("font-weight", "bold")
+    .text("DATE");
 
-    // Add the y-axis
+
+    // Add the y-axis with white color for the label and title
     svg.append("g")
-        .call(d3.axisLeft(y));
+    .call(d3.axisLeft(y))
+    .selectAll("text")
+    .attr("fill", "white");
+
+    // Add y-axis title
+    svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -margin.left)
+    .attr("x", -height / 2)
+    .attr("dy", "1em")
+    .attr("fill", "white")
+    .style("text-anchor", "middle")
+    .text("Units");
 
     // Create the line generators
     const lineUsage = d3.line()
         .x(d => x(d.date))
-        .y(d => y(d.value));
+        .y(d => y(d.value))
+        .curve(d3.curveMonotoneX);
 
     const lineTemperature = d3.line()
         .x(d => x(d.date))
-        .y(d => y(d.temperature)); // Use temperature value for y-axis
+        .y(d => y(d.temperature))
+        .curve(d3.curveMonotoneX);
 
     // Add the line paths to the SVG element
     svg.append("path")
-        .datum(data.usage)
-        .attr("fill", "none")
-        .attr("stroke", "green") // Set color for usage line
-        .attr("stroke-width", 1)
-        .attr("d", lineUsage);
+    .datum(data.usage)
+    .attr("fill", "none")
+    .attr("stroke", "green") // Set color for usage line
+    .attr("stroke-width", 2)
+    .attr("d", lineUsage);
+
+    // Add label for the green line
+    svg.append("text")
+        .attr("transform", `translate(${width / 2},${-10})`)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "middle")
+        .style("fill", "green")
+        .text("Unit Usage (W)");
 
     svg.append("path")
-        .datum(data.temperature)
-        .attr("fill", "none")
-        .attr("stroke", "red") // Set color for temperature line
-        .attr("stroke-width", 1)
-        .attr("d", lineTemperature);
+    .datum(data.temperature)
+    .attr("fill", "none")
+    .attr("stroke", "red") // Set color for temperature line
+    .attr("stroke-width", 2)
+    .attr("d", lineTemperature);
+
+    // Add label for the red line
+    svg.append("text")
+        .attr("transform", `translate(${width / 2},${-30})`)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "middle")
+        .style("fill", "red")
+        .text("Temperature (F)");
+
 
     // create a listening rectangle
     const listeningRect = svg.append("rect")
@@ -143,7 +175,12 @@ const filledTemperatureData = fillMissingTemperature(combinedData);
                 .style("display", "block")
                 .style("left", `${x(dUsage.date) + margin.left}px`)
                 .style("top", `${height + margin.top + 10}px`)
-                .html(`<strong>Date:</strong> ${dUsage.date.toLocaleDateString()}<br><strong>Usage:</strong> ${!isNaN(dUsage.value) ? dUsage.value.toFixed(2) : 'N/A'}<br><strong>Temperature:</strong> ${closestTemperature !== null && !isNaN(closestTemperature.value) ? closestTemperature.value.toFixed(2) : 'N/A'}`);
+                .html(`
+                    <strong>Date:</strong> ${dUsage.date.toLocaleDateString()}<br>
+                    <strong>Usage:</strong> ${!isNaN(dUsage.value) ? dUsage.value.toFixed(2) : 'N/A'}<br>
+                    <strong>Temperature:</strong> ${closestTemperature !== null && !isNaN(closestTemperature.value) ? closestTemperature.value.toFixed(2) : 'N/A'}
+                `);
+
         }
         
         // Function to find the closest temperature data point for a given date
@@ -164,7 +201,7 @@ const filledTemperatureData = fillMissingTemperature(combinedData);
         }   
 
 
-// listening rectangle mouse leave function
+    // listening rectangle mouse leave function
     function mouseleave() {
         // Remove the vertical line and hide the tooltip
         svg.selectAll(".vertical-line").remove();
@@ -172,26 +209,26 @@ const filledTemperatureData = fillMissingTemperature(combinedData);
     }
 
     // Function to fill missing temperature values with the average of previous and next month's values
-function fillMissingTemperature(data) {
-    const filledData = [...data];
+    function fillMissingTemperature(data) {
+        const filledData = [...data];
 
-    for (let i = 1; i < filledData.length - 1; i++) {
-        if (isNaN(filledData[i].value)) {
-            const prevValue = filledData[i - 1].value;
-            const nextValue = filledData[i + 1].value;
+        for (let i = 1; i < filledData.length - 1; i++) {
+            if (isNaN(filledData[i].value)) {
+                const prevValue = filledData[i - 1].value;
+                const nextValue = filledData[i + 1].value;
 
-            if (!isNaN(prevValue) && !isNaN(nextValue)) {
-                filledData[i].value = (prevValue + nextValue) / 2;
-            } else if (!isNaN(prevValue)) {
-                filledData[i].value = prevValue;
-            } else if (!isNaN(nextValue)) {
-                filledData[i].value = nextValue;
+                if (!isNaN(prevValue) && !isNaN(nextValue)) {
+                    filledData[i].value = (prevValue + nextValue) / 2;
+                } else if (!isNaN(prevValue)) {
+                    filledData[i].value = prevValue;
+                } else if (!isNaN(nextValue)) {
+                    filledData[i].value = nextValue;
+                }
             }
         }
-    }
 
-    return filledData;
-}
+        return filledData;
+    }
 
     // Function to calculate average temperature based on the given date
     function calculateAverageTemperature(d, data) {
@@ -236,7 +273,6 @@ document.getElementById('propertyDropdown').addEventListener('change', function 
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // Add any other headers if necessary
         },
     })
         .then(response => response.json())

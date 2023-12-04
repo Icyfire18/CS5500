@@ -1,4 +1,3 @@
-/* Style for the welcome message */
 h1 {
     margin-bottom: 20px; /* Add some spacing below the welcome message */
 }
@@ -12,11 +11,6 @@ select {
 /* Style for the propertyDataDisplay container */
 #propertyDataDisplay {
     margin-bottom: 20px; /* Add some spacing below the data display */
-}
-
-/* Style for the graph section heading */
-h1 {
-    color: #007BFF; /* Blue color for the heading */
 }
 
 /* Style for the chart container */
