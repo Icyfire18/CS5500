@@ -2,13 +2,13 @@
 
 {% load static %}
 
+<!-- Set the title for the Home page, overriding the base template -->
 {% block title %}
-    <!-- Set the title for the Home page, overriding the base template -->
     Homepage
 {% endblock %}
 
 {% block extra_css %}
-    <!-- Link the custom CSS file for the login page -->
+    <!-- Link the custom CSS file for the home page -->
     <link rel="stylesheet" href="{% static 'homepage.css' %}">
 {% endblock %}
 

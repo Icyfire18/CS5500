@@ -41,13 +41,13 @@
                     {% csrf_token %}
                     <input type="hidden" name="action" value="logout">
                 </form>
-                <li><a href="{% url 'd3_graph' %}">View Data</a></li>
+                <li><a href="{% url 'd3_graph' %}">Visualization</a></li>
                 {% else %}
                 <!-- Display links for non-authenticated users -->
                 
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
-                <li><a href="#" disabled title="Only registered users can access" onclick="alert('Login required')">View Data</a></li>
+                <li><a href="#" disabled title="Only registered users can access" onclick="alert('Login required')">Visualization</a></li>
                 {% endif %}
                 <!-- Common link for all users -->
                 <li><a href="{% url 'about_us' %}">About Us</a></li>

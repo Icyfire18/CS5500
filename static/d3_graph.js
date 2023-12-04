@@ -32,23 +32,23 @@ function updateGraph(data) {
         .attr("class", "tooltip");
 
     // Parse date values as JavaScript Date objects
-    data.usage.forEach(function (d) {
-        d.date = new Date(d.date);
-        d.usage = +d.value; // convert to numeric value
-    });
+data.usage.forEach(function (d) {
+    d.date = new Date(d.date);
+    d.value = +d.value; // convert to numeric value
+});
 
-    data.temperature.forEach(function (d) {
-        d.date = new Date(d.date);
-        d.temperature = +d.value; // convert to numeric value
-    });
+data.temperature.forEach(function (d) {
+    d.date = new Date(d.date);
+    d.temperature = +d.value; // convert to numeric value
+});
 
-    console.log("Parsed data:", data);
+// Combine usage and temperature data
+console.log("Data Usage : ", data.usage);
+console.log("Data Temp: ", data.temperature);
+const combinedData = data.usage.concat(data.temperature);
 
-    // Combine usage and temperature data
-    const combinedData = data.usage.concat(data.temperature);
-
-    // Fill missing temperature values with the average of previous and next month's values
-    const filledTemperatureData = fillMissingTemperature(combinedData);
+// Fill missing temperature values with the average of previous and next month's values
+const filledTemperatureData = fillMissingTemperature(combinedData);
 
     // Define the x and y domains
     x.domain(d3.extent(filledTemperatureData, d => d.date));
@@ -112,35 +112,59 @@ function updateGraph(data) {
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave);
 
-    // create the mouse move function
-    function mousemove(event) {
-        const [xCoord] = d3.pointer(event);
-        const bisectDate = d3.bisector(d => d.date).left;
-        const x0 = x.invert(xCoord);
-        const i = bisectDate(filledTemperatureData, x0, 1);
-        const d = filledTemperatureData[i];
+        function mousemove(event) {
+            const [xCoord] = d3.pointer(event);
+            const x0 = x.invert(xCoord);
+        
+            // Use bisector to find the index of date in the original usage data
+            const bisectDate = d3.bisector(d => d.date).left;
+            const i = bisectDate(data.usage, x0, 1);
+        
+            // Determine the closer data point in the original usage data
+            const dUsage = i < data.usage.length ? data.usage[i] : data.usage[i - 1];
+        
+            // Find the closest temperature in temperature data
+            const closestTemperature = findClosestTemperature(data.temperature, dUsage.date);
+        
+            // Display the vertical line
+            svg.selectAll(".vertical-line").remove();
+            svg.append("line")
+                .attr("class", "vertical-line")
+                .attr("x1", x(dUsage.date))
+                .attr("x2", x(dUsage.date))
+                .attr("y1", 0)
+                .attr("y2", height)
+                .attr("stroke", "white")
+                .attr("stroke-width", 1)
+                .attr("stroke-dasharray", "4");
+        
+            // Display the data below the graph
+            tooltip
+                .style("display", "block")
+                .style("left", `${x(dUsage.date) + margin.left}px`)
+                .style("top", `${height + margin.top + 10}px`)
+                .html(`<strong>Date:</strong> ${dUsage.date.toLocaleDateString()}<br><strong>Usage:</strong> ${!isNaN(dUsage.value) ? dUsage.value.toFixed(2) : 'N/A'}<br><strong>Temperature:</strong> ${closestTemperature !== null && !isNaN(closestTemperature.value) ? closestTemperature.value.toFixed(2) : 'N/A'}`);
+        }
+        
+        // Function to find the closest temperature data point for a given date
+        function findClosestTemperature(temperatureData, targetDate) {
+            let closestTemperature = null;
+            let minDateDifference = Infinity;
+        
+            temperatureData.forEach(entry => {
+                const dateDifference = Math.abs(entry.date - targetDate);
+        
+                if (dateDifference < minDateDifference) {
+                    minDateDifference = dateDifference;
+                    closestTemperature = entry;
+                }
+            });
+        
+            return closestTemperature;
+        }   
 
-        // Display the vertical line
-        svg.selectAll(".vertical-line").remove();
-        svg.append("line")
-            .attr("class", "vertical-line")
-            .attr("x1", x(d.date))
-            .attr("x2", x(d.date))
-            .attr("y1", 0)
-            .attr("y2", height)
-            .attr("stroke", "white")
-            .attr("stroke-width", 1)
-            .attr("stroke-dasharray", "4");
 
-        // Display the data below the graph
-        tooltip
-            .style("display", "block")
-            .style("left", `${x(d.date) + margin.left}px`)
-            .style("top", `${height + margin.top + 10}px`)
-            .html(`<strong>Date:</strong> ${d.date.toLocaleDateString()}<br><strong>Usage:</strong> ${!isNaN(d.usage) ? d.usage.toFixed(2) : 'N/A'}<br><strong>Temperature:</strong> ${!isNaN(d.temperature) ? d.temperature.toFixed(2) : calculateAverageTemperature(d, filledTemperatureData)}`);
-    }
-
-    // listening rectangle mouse leave function
+// listening rectangle mouse leave function
     function mouseleave() {
         // Remove the vertical line and hide the tooltip
         svg.selectAll(".vertical-line").remove();
@@ -148,26 +172,26 @@ function updateGraph(data) {
     }
 
     // Function to fill missing temperature values with the average of previous and next month's values
-    function fillMissingTemperature(data) {
-        const filledData = [...data];
+function fillMissingTemperature(data) {
+    const filledData = [...data];
 
-        for (let i = 1; i < filledData.length - 1; i++) {
-            if (isNaN(filledData[i].temperature)) {
-                const prevValue = filledData[i - 1].temperature;
-                const nextValue = filledData[i + 1].temperature;
+    for (let i = 1; i < filledData.length - 1; i++) {
+        if (isNaN(filledData[i].value)) {
+            const prevValue = filledData[i - 1].value;
+            const nextValue = filledData[i + 1].value;
 
-                if (!isNaN(prevValue) && !isNaN(nextValue)) {
-                    filledData[i].temperature = (prevValue + nextValue) / 2;
-                } else if (!isNaN(prevValue)) {
-                    filledData[i].temperature = prevValue;
-                } else if (!isNaN(nextValue)) {
-                    filledData[i].temperature = nextValue;
-                }
+            if (!isNaN(prevValue) && !isNaN(nextValue)) {
+                filledData[i].value = (prevValue + nextValue) / 2;
+            } else if (!isNaN(prevValue)) {
+                filledData[i].value = prevValue;
+            } else if (!isNaN(nextValue)) {
+                filledData[i].value = nextValue;
             }
         }
-
-        return filledData;
     }
+
+    return filledData;
+}
 
     // Function to calculate average temperature based on the given date
     function calculateAverageTemperature(d, data) {
@@ -246,6 +270,7 @@ document.getElementById('meterDropdown').addEventListener('change', function (ev
         headers: {
             'Content-Type': 'application/json',
             // Add any other headers if necessary
+            'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token in the headers
         },
         body: JSON.stringify({ property_id: selectedPropertyName, meter_type: selectedMeterType })
     })
@@ -259,3 +284,20 @@ document.getElementById('meterDropdown').addEventListener('change', function (ev
 
 // Trigger the change event after setting up the listener
 document.getElementById('propertyDropdown').dispatchEvent(new Event('change'));
+
+// Function to get the CSRF token from cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
