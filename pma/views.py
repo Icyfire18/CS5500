@@ -1,12 +1,14 @@
-import json
-from django.contrib import auth, messages
-from django.contrib.auth import authenticate, logout
+from django.contrib import auth
+from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
-from .models import Usage, Weather
+from django.shortcuts import redirect
+from django.shortcuts import render
+from .models import Usage
+from .models import Weather
 
 def home(request):
     """
@@ -88,7 +90,6 @@ def about_us(request):
     """
     return render(request, 'about-us.html')
 
-@csrf_exempt
 def get_property_data(request, property_name, meter_type):
     """
     Retrieve property data for a specific property and meter type.
