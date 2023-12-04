@@ -96,7 +96,6 @@ def get_property_data(request, property_name, meter_type):
     """
     if request.method == 'POST':
         try:
-            # Assuming property_name is a string field in the Usage model
             usage_objects = Usage.objects.filter(property_name=property_name, meter_type=meter_type)
 
             # Find the starting and ending dates for usage data
@@ -129,7 +128,6 @@ def get_meter_types(request, property_name):
     """
     if request.method == 'GET':
         try:
-            # Assuming property_name is a string field in the Usage model
             meter_types = Usage.objects.filter(property_name=property_name).values_list('meter_type', flat=True).distinct()
             return JsonResponse({'meter_types': list(meter_types)})
         except Exception as e:
@@ -149,5 +147,4 @@ def d3_graph(request):
     # Get all unique property_names
     property_names = Usage.objects.values_list('property_name', flat=True).distinct()
 
-    # You can now use property_data in your view
     return render(request, 'd3-graph.html', {'property_names': property_names})
