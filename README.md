@@ -1,4 +1,33 @@
-# CS5500
+# Project Title: MuSE (Museum visualzation with Software Engineering)
+
+## Project Description: 
+This project aims to address the declining enthusiasm towards museum visits and the threat of climate change on museum preservation by leveraging information visualization concepts. The focus is on creating a software-oriented application, specifically a website, to visually demonstrate the impact of climate change on increasing maintenance costs for museums. The project involves setting up a SQLite database to store and modify relevant data, a frontend to visualize and update the website, and a modal to predict data for information visualization. The goal is to dynamically showcase the need for conservation measures through live visualizations that auto-refresh with the latest data, providing a compelling and interactive platform for raising awareness about the challenges faced by museums in the context of climate change.
+
+## Project Hosted: [MuSE](https://muse.pythonanywhere.com/)
+
+## Features:
+    1. **User Registeration & Authentication System**: Allow users to register for an account and log in to access the website's services.
+    2. **Data Vizualization**: System provides various interactive features including tooltip.
+    3. **Safety**: System doesn't expose sensitive data and unauthorized access.
+    4. **Business Rules**: Multiple Business Rules in place.
+    5. **Compliance**: Teh website complies with various data protection and privacy laws, including GDPR (General Data Protection Regulation)
+
+## Team Style: 
+    **Open** (all work on different tasks reviewing and providing feedback to each other)
+
+## Process Model: 
+    **Waterfall Methodology**
+    1. Requirements gathering and analysis. 
+    2. System design 
+    3. Implementation 
+    4. Testing 
+    5. Deployment 
+    6. Maintenance 
+
+## Acknowledgements
+We would like to acknowledge and express our gratitude to the following individuals for their direction and support:
+1. [Professor Cantrell, Gary](mailto:g.cantrell@northeastern.edu)
+2. [Professor Bogden, Philip](mailto:p.bogden@northeastern.edu)
 
 ## Done 
 
