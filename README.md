@@ -13,7 +13,7 @@ This project aims to address the declining enthusiasm towards museum visits and 
     5. **Compliance**: Teh website complies with various data protection and privacy laws, including GDPR (General Data Protection Regulation)
 
 ## Team Style: 
-    **Open** (all work on different tasks reviewing and providing feedback to each other)
+    __Open__ (all work on different tasks reviewing and providing feedback to each other)
 
 ## Process Model: 
     **Waterfall Methodology**
