@@ -6,23 +6,23 @@ This project aims to address the declining enthusiasm towards museum visits and 
 ## Project Hosted: [MuSE](https://muse.pythonanywhere.com/)
 
 ## Features:
-    1. **User Registeration & Authentication System**: Allow users to register for an account and log in to access the website's services.
-    2. **Data Vizualization**: System provides various interactive features including tooltip.
-    3. **Safety**: System doesn't expose sensitive data and unauthorized access.
-    4. **Business Rules**: Multiple Business Rules in place.
-    5. **Compliance**: Teh website complies with various data protection and privacy laws, including GDPR (General Data Protection Regulation)
+1. __User Registeration & Authentication System__: Allow users to register for an account and log in to access the website's services.
+2. **Data Vizualization**: System provides various interactive features including tooltip.
+3. **Safety**: System doesn't expose sensitive data and unauthorized access.
+4. **Business Rules**: Multiple Business Rules in place.
+5. **Compliance**: Teh website complies with various data protection and privacy laws, including GDPR (General Data Protection Regulation)
 
 ## Team Style: 
-    **Open** (all work on different tasks reviewing and providing feedback to each other)
+***Open*** (all work on different tasks reviewing and providing feedback to each other)
 
 ## Process Model: 
-    **Waterfall Methodology**
-    1. Requirements gathering and analysis. 
-    2. System design 
-    3. Implementation 
-    4. Testing 
-    5. Deployment 
-    6. Maintenance 
+**Waterfall Methodology**
+1. Requirements gathering and analysis. 
+2. System design 
+3. Implementation 
+4. Testing 
+5. Deployment 
+6. Maintenance 
 
 ## Acknowledgements
 We would like to acknowledge and express our gratitude to the following individuals for their direction and support:
