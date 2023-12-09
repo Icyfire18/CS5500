@@ -25,6 +25,25 @@ This project aims to address the declining enthusiasm towards museum visits and 
 5. Deployment 
 6. Maintenance 
 
+## Locally run the Project
+1. Download the Project zip file and unzip it. 
+2. Open command prompt from the root directory of the project folder.
+3. Run the following commands
+
+```
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+
+4. To relaod the data into database for historical load
+   
+```
+python utils/loadData.py
+```
+
+5. Open your browser and go to http://127.0.0.1:8000/ to see the result
+
 ## Acknowledgements
 We would like to acknowledge and express our gratitude to the following individuals for their direction and support:
 1. [Professor Cantrell, Gary](mailto:g.cantrell@northeastern.edu)
