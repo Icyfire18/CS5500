@@ -6,6 +6,10 @@ This project aims to address the declining enthusiasm towards museum visits and 
 ## Project Link 
 [MuSE](https://muse.pythonanywhere.com/)
 
+## SiteMap
+
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+
 ## Features:
 1. **User Registeration & Authentication System**: Allow users to register for an account and log in to access the website's services.
 2. **Data Vizualization**: System provides various interactive features including tooltip.
