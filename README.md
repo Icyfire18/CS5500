@@ -72,9 +72,3 @@ We would like to acknowledge and express our gratitude to the following individu
 - [Project Evaluation](https://northeastern-my.sharepoint.com/:w:/g/personal/manne_sa_northeastern_edu/EUM7T8KC2lBLo2CEngHdzlEBLVMlFDdsnJ2-e5vSON0KNw?e=Wd4vr2)
 
 - [Individual Contribution Score](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EewPx0Jlg4NDl3hmBhCJ5nYBkSw0Fv_QHktTUcbaj0kPpA?e=dhh0tu)
-
-
-
-
-
-
