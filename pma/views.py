@@ -117,7 +117,7 @@ def get_property_data(request, property_name, meter_type):
 
             return JsonResponse({'data': data})
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+            return JsonResponse({'error': 'Internal Server Error'}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
@@ -131,7 +131,7 @@ def get_meter_types(request, property_name):
             meter_types = Usage.objects.filter(property_name=property_name).values_list('meter_type', flat=True).distinct()
             return JsonResponse({'meter_types': list(meter_types)})
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
+            return JsonResponse({'error': 'Bad Request'}, status=400)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
