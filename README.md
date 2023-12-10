@@ -8,7 +8,7 @@ This project aims to address the declining enthusiasm towards museum visits and 
 
 ## SiteMap
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![alt text](https://github.com/Icyfire18/CS5500/blob/main/static/SiteMap.png)
 
 ## Features:
 1. **User Registeration & Authentication System**: Allow users to register for an account and log in to access the website's services.
