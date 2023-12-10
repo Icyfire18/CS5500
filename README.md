@@ -36,7 +36,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-4. To relaod the data into database for historical load
+4. To reload the data into database for historical load
    
 ```
 python utils/loadData.py
