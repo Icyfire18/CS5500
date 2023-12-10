@@ -61,9 +61,11 @@ We would like to acknowledge and express our gratitude to the following individu
   
 - [Software Design Documentation](https://northeastern-my.sharepoint.com/:w:/r/personal/sait_ar_northeastern_edu/Documents/Group-Project-CS5500/MuSE_SDD.docx?d=wf94f2a608b8d4b658d7dc4eccf2a0672&csf=1&web=1&e=cM5f9r)
 
+- [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
+
 ## InProgress
 
-- [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
+
 
 - [Testing Documentation](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EQO3ng0YpJZKniqwSrm-giQBKHE3fE72XMayp4OENLcuUw?e=tig69r)
   
