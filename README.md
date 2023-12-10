@@ -63,19 +63,11 @@ We would like to acknowledge and express our gratitude to the following individu
 
 - [Team Meeting Notes](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EeFunlkxtaZEnE1xbZNHOUQBhcGJLZGy8NSOaa_ExiUU4g?e=idfeXq)
 
-## InProgress
-
-
-
-- [Testing Documentation](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EQO3ng0YpJZKniqwSrm-giQBKHE3fE72XMayp4OENLcuUw?e=tig69r)
+- [Testing Documentation](https://northeastern-my.sharepoint.com/:w:/g/personal/manne_sa_northeastern_edu/ERR13eX72xhGtSaEFmWtwtkB9c0sBDErUBrplHYhOXlPaw?e=2oYuWi)
   
-- [Project Evaluation](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EQBkccSTmHdMsZCuPvOR0AYBs_AYpdrQVNPP1-DZyemPUg?e=dA6A3I)
+- [Project Evaluation](https://northeastern-my.sharepoint.com/:w:/g/personal/manne_sa_northeastern_edu/EUM7T8KC2lBLo2CEngHdzlEBLVMlFDdsnJ2-e5vSON0KNw?e=Wd4vr2)
 
-- [Individual Contribution Score](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EewPx0Jlg4NDl3hmBhCJ5nYB7sw03iCXyh5In7TLlD3IKA?e=yrTxLW)
-  
-## TBD 
-
-- [Project Rubrix Link](https://docs.google.com/spreadsheets/d/1F2wegwEyFnLxT9_B312vTzoKzwMELVDq2KLEqa-dvkI/edit#gid=0)
+- [Individual Contribution Score](https://northeastern-my.sharepoint.com/:w:/g/personal/sait_ar_northeastern_edu/EewPx0Jlg4NDl3hmBhCJ5nYBkSw0Fv_QHktTUcbaj0kPpA?e=dhh0tu)
 
 
 
